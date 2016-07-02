@@ -1,0 +1,57 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}
+\usepackage{bussproofs}
+\geometry{a4paper}
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\EnableBpAbbreviations
+
+\newcommand{\IMPLE}[1]{\scriptstyle\to\mathrm{E}^{#1}}
+\newcommand{\IMPLI}[1]{\scriptstyle\to\mathrm{I}^{#1}}
+\newcommand{\CONJE}[1]{\scriptstyle\land\mathrm{E}^{#1}}
+\newcommand{\CONJI}[1]{\scriptstyle\land\mathrm{I}^{#1}}
+\newcommand{\DISJE}[1]{\scriptstyle\lor\mathrm{E}^{#1}}
+\newcommand{\DISJI}[1]{\scriptstyle\lor\mathrm{I}^{#1}}
+
+\newcommand{\MARKER}[1]{\RightLabel{\scriptsize(#1)}}
+\newcommand{\LABEL}[1]{\RightLabel{$#1$}}
+
+\newcommand{\DNE}[1]{\lnot\lnot#1\to#1}
+\newcommand{\LEM}[1]{#1\lor\lnot#1}
+\newcommand{\DGP}[2]{(#1\to#2)\lor(#2\to#1)}
+\newcommand{\PP}[2]{((#1\to#2)\to#1)\to#1}
+\newcommand{\WPP}[2]{\lnot#1\to\lnot\lnot(#1\to#2)}
+
+\title{Proof Tests}
+\author{Miles Rout}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{prooftree}
+	\AxiomC{}
+	\MARKER{1}
+	\UnaryInfC{$A$}
+	\AxiomC{$B$}
+	\BinaryInfC{$B$}
+	\LABEL{\IMPLE{1}}
+	\UnaryInfC{$A \to B$}
+\end{prooftree}
+
+Examples of the commands above:
+
+\begin{prooftree}
+	\AXC{}
+	\UIC{$\DNE{\varphi}$}
+	\UIC{$\LEM{\varphi}$}
+	\UIC{$\DGP{\varphi}{\vartheta}$}
+	\UIC{$\PP{\varphi}{\vartheta}$}
+	\UIC{$\WPP{\varphi}{\vartheta}$}
+\end{prooftree}
+
+\end{document}  
