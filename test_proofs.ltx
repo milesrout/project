@@ -184,6 +184,29 @@ $\mathrm{DNE}_\phi \implies \mathrm{EFQ}_\phi$:
 	\UIC{$\phi$}
 \end{prooftree}
 
+$\mathrm{PP}_{\LEM{\phi},\bot} \implies \mathrm{LEM}_\phi$:
+
+\begin{prooftree}
+	\AXC{}
+	\MARKER{2}
+	\UIC{$(\LEM{\phi})\to\bot$}
+	\AXC{}
+	\MARKER{1}
+	\UIC{$\phi$}
+	\LABEL{\DISJI}
+	\UIC{$\LEM{\phi}$}
+	\LABEL{\IMPLE}
+	\BIC{$\bot$}
+	\LABEL{\IMPLI{1}}
+	\UIC{$\lnot\phi$}
+	\LABEL{\DISJI}
+	\UIC{$\LEM{\phi}$}
+	\LABEL{\IMPLI{2}}
+	\UIC{$((\LEM{\phi})\to\bot)\to(\LEM{\phi})$}
+	\LABEL{\mathrm{PP}_{\LEM{\phi},\bot}}
+	\UIC{$\LEM{\phi}$}
+\end{prooftree}
+
 \end{document} 
 
 
