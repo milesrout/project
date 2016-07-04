@@ -26,6 +26,7 @@
 \newcommand{\DGP}[2]{(#1\to#2)\lor(#2\to#1)}
 \newcommand{\PP}[2]{((#1\to#2)\to#1)\to#1}
 \newcommand{\WPP}[2]{\lnot#1\to\lnot\lnot(#1\to#2)}
+\newcommand{\WLEM}[1]{\LEM{#1}}
 
 \title{Proof Tests}
 \author{Miles Rout}
@@ -36,6 +37,11 @@
 \let\temp\phi
 \let\phi\varphi
 \let\varphi\temp
+
+\let\temp\theta
+\let\theta\vartheta
+\let\vartheta\temp
+
 \maketitle
 
 \begin{prooftree}
@@ -206,6 +212,43 @@ $\mathrm{PP}_{\LEM{\phi},\bot} \implies \mathrm{LEM}_\phi$:
 	\LABEL{\mathrm{PP}_{\LEM{\phi},\bot}}
 	\UIC{$\LEM{\phi}$}
 \end{prooftree}
+
+$\mathrm{DGP}_{\phi,\lnot\phi} \implies \mathrm{WLEM}_\phi$:
+
+\begin{prooftree}
+	\AXC{}
+	\LABEL{\mathrm{DGP}_{\phi,\lnot\phi}}
+	\UIC{$(\phi\to\lnot\phi)\lor(\lnot\phi\to\phi)$}
+
+	\AXC{}
+	\MARKER{1}
+	\UIC{$\phi$}
+	\AXC{$\phi\to\lnot\phi$}
+	\LABEL{\IMPLE}
+	\BIC{$\lnot\phi$}
+	\LABEL{\NEGE}
+	\UIC{$\bot$}
+	\LABEL{\IMPLI{1}}
+	\UIC{$\lnot\phi$}
+	\LABEL{\DISJI}
+	\UIC{$\WLEM{\phi}$}
+
+	\AXC{}
+	\MARKER{2}
+	\UIC{$\lnot\phi$}
+	\AXC{$\lnot\phi\to\phi$}
+	\LABEL{\IMPLE}
+	\BIC{$\phi$}
+	\LABEL{\NEGE}
+	\UIC{$\bot$}
+	\LABEL{\IMPLI{2}}
+	\UIC{$\lnot\lnot\phi$}
+	\LABEL{\DISJI}
+	\UIC{$\WLEM{\phi}$}
+
+	\TIC{$\WLEM{\phi}$}
+\end{prooftree}
+
 
 \end{document} 
 
