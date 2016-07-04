@@ -18,6 +18,7 @@
 \newcommand{\DISJE}[1]{\lor\mathrm{E}^{#1}}
 \newcommand{\DISJI}{\lor\mathrm{I}}
 
+\newcommand{\ASSUME}[2]{\AxiomC{}\MARKER{#2}\UnaryInfC{#1}}
 \newcommand{\MARKER}[1]{\RightLabel{\scriptsize(#1)}}
 \newcommand{\LABEL}[1]{\RightLabel{$\scriptstyle#1$}}
 
@@ -68,20 +69,14 @@ Examples of the commands above:
 $\mathrm{PP}_{\DGP{P}{Q},P} \implies \mathrm{DGP}_{P,Q}$:
 
 \begin{prooftree}
-	\AXC{}
-	\MARKER{1}
-	\UIC{$P$}
-	\AXC{}
-	\MARKER{2}
-	\UIC{$Q$}
+	\ASSUME{$P$}{1}
+	\ASSUME{$Q$}{2}
 	\BIC{$Q$}
 	\LABEL{\IMPLI{1}}
 	\UIC{$P \to Q$}
 	\LABEL{\DISJI}
 	\UIC{$\DGP{P}{Q}$}
-	\AXC{}
-	\MARKER{3}
-	\UIC{$(\DGP{P}{Q}) \to P$}
+	\ASSUME{$(\DGP{P}{Q}) \to P$}{3}
 	\LABEL{\IMPLE}
 	\BIC{$P$}
 	\LABEL{\IMPLI{2}}
@@ -97,16 +92,10 @@ $\mathrm{PP}_{\DGP{P}{Q},P} \implies \mathrm{DGP}_{P,Q}$:
 $\mathrm{PP}_{\bot,\psi} \implies \mathrm{WPP}_{\phi,\psi}$:
 
 \begin{prooftree}
-	\AXC{}
-	\MARKER{3}
-	\UIC{$\phi\to\bot$}
-	\AXC{}
-	\MARKER{1}
-	\UIC{$\bot\to\psi$}
+	\ASSUME{$\phi\to\bot$}{3}
+	\ASSUME{$\bot\to\psi$}{1}
 	\BIC{$\phi\to\psi$}
-	\AXC{}
-	\MARKER{2}
-	\UIC{$(\phi\to\psi)\to\bot$}
+	\ASSUME{$(\phi\to\psi)\to\bot$}{2}
 	\BIC{$\bot$}
 	\LABEL{\IMPLI{1}}
 	\UIC{$(\bot\to\psi)\to\bot$}
@@ -121,31 +110,19 @@ $\mathrm{PP}_{\bot,\psi} \implies \mathrm{WPP}_{\phi,\psi}$:
 $\mathrm{DNE}_{\phi} \implies \mathrm{PP}_{\phi,\psi}$:
 
 \begin{prooftree}
-	\AXC{}
-	\MARKER{6}
-	\UIC{$(\phi\to\psi)\to\phi$}
-	\AXC{}
-	\MARKER{1}
-	\UIC{$\phi\to\psi$}
+	\ASSUME{$(\phi\to\psi)\to\phi$}{6}
+	\ASSUME{$\phi\to\psi$}{1}
 	\BIC{$\phi$}
-	\AXC{}
-	\MARKER{5}
-	\UIC{$\neg\phi$}
+	\ASSUME{$\neg\phi$}{5}
 	\LABEL{\NEGE}
 	\BIC{$\bot$}
 	\LABEL{\IMPLI{1}}
 	\UIC{$\neg(\phi\to\psi)$}
-	\AXC{}
-	\MARKER{3}
-	\UIC{$\phi$}
-	\AXC{}
-	\MARKER{2}
-	\UIC{$\neg\psi$}
+	\ASSUME{$\phi$}{3}
+	\ASSUME{$\neg\psi$}{2}
 	\LABEL{\CONJI}
 	\BIC{$\phi\land\neg\psi$}
-	\AXC{}
-	\MARKER{4}
-	\UIC{$\neg(\phi\land\neg\psi)$}
+	\ASSUME{$\neg(\phi\land\neg\psi)$}{4}
 	\LABEL{\NEGE}
 	\BIC{$\bot$}
 	\LABEL{\IMPLI{2}}
@@ -175,9 +152,7 @@ $\mathrm{DNE}_{\phi} \implies \mathrm{PP}_{\phi,\psi}$:
 $\mathrm{DNE}_\phi \implies \mathrm{EFQ}_\phi$:
 
 \begin{prooftree}
-	\AXC{}
-	\MARKER{1}
-	\UIC{$\lnot\phi$}
+	\ASSUME{$\lnot\phi$}{1}
 	\AXC{$\bot$}
 	\LABEL{\CONJI}
 	\BIC{$\lnot\phi\land\bot$}
@@ -193,12 +168,8 @@ $\mathrm{DNE}_\phi \implies \mathrm{EFQ}_\phi$:
 $\mathrm{PP}_{\LEM{\phi},\bot} \implies \mathrm{LEM}_\phi$:
 
 \begin{prooftree}
-	\AXC{}
-	\MARKER{2}
-	\UIC{$(\LEM{\phi})\to\bot$}
-	\AXC{}
-	\MARKER{1}
-	\UIC{$\phi$}
+	\ASSUME{$(\LEM{\phi})\to\bot$}{2}
+	\ASSUME{$\phi$}{1}
 	\LABEL{\DISJI}
 	\UIC{$\LEM{\phi}$}
 	\LABEL{\IMPLE}
@@ -220,9 +191,7 @@ $\mathrm{DGP}_{\phi,\lnot\phi} \implies \mathrm{WLEM}_\phi$:
 	\LABEL{\mathrm{DGP}_{\phi,\lnot\phi}}
 	\UIC{$(\phi\to\lnot\phi)\lor(\lnot\phi\to\phi)$}
 
-	\AXC{}
-	\MARKER{1}
-	\UIC{$\phi$}
+	\ASSUME{$\phi$}{1}
 	\AXC{$\phi\to\lnot\phi$}
 	\LABEL{\IMPLE}
 	\BIC{$\lnot\phi$}
@@ -233,9 +202,7 @@ $\mathrm{DGP}_{\phi,\lnot\phi} \implies \mathrm{WLEM}_\phi$:
 	\LABEL{\DISJI}
 	\UIC{$\WLEM{\phi}$}
 
-	\AXC{}
-	\MARKER{2}
-	\UIC{$\lnot\phi$}
+	\ASSUME{$\lnot\phi$}{2}
 	\AXC{$\lnot\phi\to\phi$}
 	\LABEL{\IMPLE}
 	\BIC{$\phi$}
