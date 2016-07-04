@@ -10,15 +10,16 @@
 
 \EnableBpAbbreviations
 
-\newcommand{\IMPLE}[1]{\scriptstyle\to\mathrm{E}^{#1}}
-\newcommand{\IMPLI}[1]{\scriptstyle\to\mathrm{I}^{#1}}
-\newcommand{\CONJE}[1]{\scriptstyle\land\mathrm{E}^{#1}}
-\newcommand{\CONJI}[1]{\scriptstyle\land\mathrm{I}^{#1}}
-\newcommand{\DISJE}[1]{\scriptstyle\lor\mathrm{E}^{#1}}
-\newcommand{\DISJI}[1]{\scriptstyle\lor\mathrm{I}^{#1}}
+\newcommand{\NEGE}{\lnot\mathrm{E}}
+\newcommand{\IMPLE}{\to\mathrm{E}}
+\newcommand{\IMPLI}[1]{\to\mathrm{I}^{#1}}
+\newcommand{\CONJE}{\land\mathrm{E}}
+\newcommand{\CONJI}{\land\mathrm{I}}
+\newcommand{\DISJE}[1]{\lor\mathrm{E}^{#1}}
+\newcommand{\DISJI}{\lor\mathrm{I}}
 
 \newcommand{\MARKER}[1]{\RightLabel{\scriptsize(#1)}}
-\newcommand{\LABEL}[1]{\RightLabel{$#1$}}
+\newcommand{\LABEL}[1]{\RightLabel{$\scriptstyle#1$}}
 
 \newcommand{\DNE}[1]{\lnot\lnot#1\to#1}
 \newcommand{\LEM}[1]{#1\lor\lnot#1}
@@ -31,6 +32,10 @@
 \date{\today}
 
 \begin{document}
+
+\let\temp\phi
+\let\phi\varphi
+\let\varphi\temp
 \maketitle
 
 \begin{prooftree}
@@ -47,11 +52,129 @@ Examples of the commands above:
 
 \begin{prooftree}
 	\AXC{}
-	\UIC{$\DNE{\varphi}$}
-	\UIC{$\LEM{\varphi}$}
-	\UIC{$\DGP{\varphi}{\vartheta}$}
-	\UIC{$\PP{\varphi}{\vartheta}$}
-	\UIC{$\WPP{\varphi}{\vartheta}$}
+	\UIC{$\DNE{\phi}$}
+	\UIC{$\LEM{\phi}$}
+	\UIC{$\DGP{\phi}{\theta}$}
+	\UIC{$\PP{\phi}{\theta}$}
+	\UIC{$\WPP{\phi}{\theta}$}
 \end{prooftree}
 
-\end{document}  
+$\mathrm{PP}_{\DGP{P}{Q},P} \implies \mathrm{DGP}_{P,Q}$:
+
+\begin{prooftree}
+	\AXC{}
+	\MARKER{1}
+	\UIC{$P$}
+	\AXC{}
+	\MARKER{2}
+	\UIC{$Q$}
+	\BIC{$Q$}
+	\LABEL{\IMPLI{1}}
+	\UIC{$P \to Q$}
+	\LABEL{\DISJI}
+	\UIC{$\DGP{P}{Q}$}
+	\AXC{}
+	\MARKER{3}
+	\UIC{$(\DGP{P}{Q}) \to P$}
+	\LABEL{\IMPLE}
+	\BIC{$P$}
+	\LABEL{\IMPLI{2}}
+	\UIC{$Q \to P$}
+	\LABEL{\DISJI}
+	\UIC{$P \to Q \lor Q \to P$}
+	\LABEL{\IMPLI{3}}
+	\UIC{$((\DGP{P}{Q}) \to P)\to\DGP{P}{Q}$}
+	\LABEL{PP_{\DGP{P}{Q},P}}
+	\UIC{$\DGP{P}{Q}$}
+\end{prooftree}
+
+$\mathrm{PP}_{\bot,\psi} \implies \mathrm{WPP}_{\phi,\psi}$:
+
+\begin{prooftree}
+	\AXC{}
+	\MARKER{3}
+	\UIC{$\phi\to\bot$}
+	\AXC{}
+	\MARKER{1}
+	\UIC{$\bot\to\psi$}
+	\BIC{$\phi\to\psi$}
+	\AXC{}
+	\MARKER{2}
+	\UIC{$(\phi\to\psi)\to\bot$}
+	\BIC{$\bot$}
+	\LABEL{\IMPLI{1}}
+	\UIC{$(\bot\to\psi)\to\bot$}
+	\LABEL{PP_{\bot,\psi}}
+	\UIC{$\bot$}
+	\LABEL{\IMPLI{2}}
+	\UIC{$((\phi\to\psi)\to\bot)\to\bot$}
+	\LABEL{\IMPLI{3}}
+	\UIC{$\lnot\phi\to\lnot\lnot(\phi\to\psi)$}
+\end{prooftree}
+
+$\mathrm{DNE}_{\phi} \implies \mathrm{PP}_{\phi,\psi}$:
+
+\begin{prooftree}
+	\AXC{}
+	\MARKER{6}
+	\UIC{$(\phi\to\psi)\to\phi$}
+	\AXC{}
+	\MARKER{1}
+	\UIC{$\phi\to\psi$}
+	\BIC{$\phi$}
+	\AXC{}
+	\MARKER{5}
+	\UIC{$\neg\phi$}
+	\LABEL{\NEGE}
+	\BIC{$\bot$}
+	\LABEL{\IMPLI{1}}
+	\UIC{$\neg(\phi\to\psi)$}
+	\AXC{}
+	\MARKER{3}
+	\UIC{$\phi$}
+	\AXC{}
+	\MARKER{2}
+	\UIC{$\neg\psi$}
+	\LABEL{\CONJI}
+	\BIC{$\phi\land\neg\psi$}
+	\AXC{}
+	\MARKER{4}
+	\UIC{$\neg(\phi\land\neg\psi)$}
+	\LABEL{\NEGE}
+	\BIC{$\bot$}
+	\LABEL{\IMPLI{2}}
+	\UIC{$\lnot\lnot\psi$}
+	\LABEL{\mathrm{DNE}_\psi}
+	\UIC{$\psi$}
+	\LABEL{\IMPLI{3}}
+	\UIC{$\phi\to\psi$}
+	\LABEL{\NEGE}
+	\BIC{$\bot$}
+	\LABEL{\IMPLI{4}}
+	\UIC{$\lnot\lnot(\phi\land\lnot\psi)$}
+	\LABEL{\mathrm{DNE}_{\phi\land\lnot\psi}}
+	\UIC{$\phi\land\lnot\psi$}
+	\LABEL{\CONJE}
+	\UIC{$\phi$}
+	\LABEL{\NEGE}
+	\UIC{$\bot$}
+	\LABEL{\IMPLI{5}}
+	\UIC{$\lnot\lnot\phi$}
+	\LABEL{\mathrm{DNE}_{\phi}}
+	\UIC{$\phi$}
+	\LABEL{\IMPLI{6}}
+	\UIC{$((\phi\to\psi)\to\phi)\to\phi$}
+\end{prooftree}
+
+\end{document} 
+
+
+
+
+
+
+
+
+
+
+ 
