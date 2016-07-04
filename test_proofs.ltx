@@ -166,6 +166,24 @@ $\mathrm{DNE}_{\phi} \implies \mathrm{PP}_{\phi,\psi}$:
 	\UIC{$((\phi\to\psi)\to\phi)\to\phi$}
 \end{prooftree}
 
+$\mathrm{DNE}_\phi \implies \mathrm{EFQ}_\phi$:
+
+\begin{prooftree}
+	\AXC{}
+	\MARKER{1}
+	\UIC{$\lnot\phi$}
+	\AXC{$\bot$}
+	\LABEL{\CONJI}
+	\BIC{$\lnot\phi\land\bot$}
+	\LABEL{\CONJE}
+	\UIC{$\bot$}
+	\LABEL{\IMPLI{1}}
+	\UIC{$\lnot\phi\to\bot$}
+	\UIC{$\lnot\lnot\phi$}
+	\LABEL{\mathrm{DNE}_\phi}
+	\UIC{$\phi$}
+\end{prooftree}
+
 \end{document} 
 
 
