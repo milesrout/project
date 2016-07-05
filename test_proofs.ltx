@@ -10,7 +10,7 @@
 
 \EnableBpAbbreviations
 
-\newcommand{\NEGE}{\lnot\mathrm{E}}
+\newcommand{\NEGE}{\neg\mathrm{E}}
 \newcommand{\IMPLE}{\to\mathrm{E}}
 \newcommand{\IMPLI}[1]{\to\mathrm{I}^{#1}}
 \newcommand{\CONJE}{\land\mathrm{E}}
@@ -20,13 +20,14 @@
 
 \newcommand{\ASSUME}[2]{\AxiomC{}\MARKER{#2}\UnaryInfC{#1}}
 \newcommand{\MARKER}[1]{\RightLabel{\scriptsize(#1)}}
-\newcommand{\LABEL}[1]{\RightLabel{$\scriptstyle#1$}}
+\newcommand{\LABEL}[1]{\RightLabel{\scriptsize #1}}
 
-\newcommand{\DNE}[1]{\lnot\lnot#1\to#1}
-\newcommand{\LEM}[1]{#1\lor\lnot#1}
+\newcommand{\DNE}[1]{\neg\neg#1\to#1}
+\newcommand{\LEM}[1]{#1\lor\neg#1}
 \newcommand{\DGP}[2]{(#1\to#2)\lor(#2\to#1)}
+\newcommand{\DGPA}[2]{\neg(#1\to#2)\to\neg\neg(#2\to#1)}
 \newcommand{\PP}[2]{((#1\to#2)\to#1)\to#1}
-\newcommand{\WPP}[2]{\lnot#1\to\lnot\lnot(#1\to#2)}
+\newcommand{\WPP}[2]{\neg#1\to\neg\neg(#1\to#2)}
 \newcommand{\WLEM}[1]{\LEM{#1}}
 
 \title{Proof Tests}
@@ -46,12 +47,10 @@
 \maketitle
 
 \begin{prooftree}
-	\AxiomC{}
-	\MARKER{1}
-	\UnaryInfC{$A$}
+	\ASSUME{$A$}{1}
 	\AxiomC{$B$}
 	\BinaryInfC{$B$}
-	\LABEL{\IMPLE{1}}
+	\LABEL{$\IMPLE{1}$}
 	\UnaryInfC{$A \to B$}
 \end{prooftree}
 
@@ -72,20 +71,20 @@ $\mathrm{PP}_{\DGP{P}{Q},P} \implies \mathrm{DGP}_{P,Q}$:
 	\ASSUME{$P$}{1}
 	\ASSUME{$Q$}{2}
 	\BIC{$Q$}
-	\LABEL{\IMPLI{1}}
+	\LABEL{$\IMPLI{1}$}
 	\UIC{$P \to Q$}
-	\LABEL{\DISJI}
+	\LABEL{$\DISJI$}
 	\UIC{$\DGP{P}{Q}$}
 	\ASSUME{$(\DGP{P}{Q}) \to P$}{3}
-	\LABEL{\IMPLE}
+	\LABEL{$\IMPLE$}
 	\BIC{$P$}
-	\LABEL{\IMPLI{2}}
+	\LABEL{$\IMPLI{2}$}
 	\UIC{$Q \to P$}
-	\LABEL{\DISJI}
+	\LABEL{$\DISJI$}
 	\UIC{$P \to Q \lor Q \to P$}
-	\LABEL{\IMPLI{3}}
+	\LABEL{$\IMPLI{3}$}
 	\UIC{$((\DGP{P}{Q}) \to P)\to\DGP{P}{Q}$}
-	\LABEL{PP_{\DGP{P}{Q},P}}
+	\LABEL{$PP_{\DGP{P}{Q},P}$}
 	\UIC{$\DGP{P}{Q}$}
 \end{prooftree}
 
@@ -97,14 +96,14 @@ $\mathrm{PP}_{\bot,\psi} \implies \mathrm{WPP}_{\phi,\psi}$:
 	\BIC{$\phi\to\psi$}
 	\ASSUME{$(\phi\to\psi)\to\bot$}{2}
 	\BIC{$\bot$}
-	\LABEL{\IMPLI{1}}
+	\LABEL{$\IMPLI{1}$}
 	\UIC{$(\bot\to\psi)\to\bot$}
-	\LABEL{PP_{\bot,\psi}}
+	\LABEL{$PP_{\bot,\psi}$}
 	\UIC{$\bot$}
-	\LABEL{\IMPLI{2}}
+	\LABEL{$\IMPLI{2}$}
 	\UIC{$((\phi\to\psi)\to\bot)\to\bot$}
-	\LABEL{\IMPLI{3}}
-	\UIC{$\lnot\phi\to\lnot\lnot(\phi\to\psi)$}
+	\LABEL{$\IMPLI{3}$}
+	\UIC{$\neg\phi\to\neg\neg(\phi\to\psi)$}
 \end{prooftree}
 
 $\mathrm{DNE}_{\phi} \implies \mathrm{PP}_{\phi,\psi}$:
@@ -114,54 +113,54 @@ $\mathrm{DNE}_{\phi} \implies \mathrm{PP}_{\phi,\psi}$:
 	\ASSUME{$\phi\to\psi$}{1}
 	\BIC{$\phi$}
 	\ASSUME{$\neg\phi$}{5}
-	\LABEL{\NEGE}
+	\LABEL{$\NEGE$}
 	\BIC{$\bot$}
-	\LABEL{\IMPLI{1}}
+	\LABEL{$\IMPLI{1}$}
 	\UIC{$\neg(\phi\to\psi)$}
 	\ASSUME{$\phi$}{3}
 	\ASSUME{$\neg\psi$}{2}
-	\LABEL{\CONJI}
+	\LABEL{$\CONJI$}
 	\BIC{$\phi\land\neg\psi$}
 	\ASSUME{$\neg(\phi\land\neg\psi)$}{4}
-	\LABEL{\NEGE}
+	\LABEL{$\NEGE$}
 	\BIC{$\bot$}
-	\LABEL{\IMPLI{2}}
-	\UIC{$\lnot\lnot\psi$}
-	\LABEL{\mathrm{DNE}_\psi}
+	\LABEL{$\IMPLI{2}$}
+	\UIC{$\neg\neg\psi$}
+	\LABEL{$\mathrm{DNE}_\psi$}
 	\UIC{$\psi$}
-	\LABEL{\IMPLI{3}}
+	\LABEL{$\IMPLI{3}$}
 	\UIC{$\phi\to\psi$}
-	\LABEL{\NEGE}
+	\LABEL{$\NEGE$}
 	\BIC{$\bot$}
-	\LABEL{\IMPLI{4}}
-	\UIC{$\lnot\lnot(\phi\land\lnot\psi)$}
-	\LABEL{\mathrm{DNE}_{\phi\land\lnot\psi}}
-	\UIC{$\phi\land\lnot\psi$}
-	\LABEL{\CONJE}
+	\LABEL{$\IMPLI{4}$}
+	\UIC{$\neg\neg(\phi\land\neg\psi)$}
+	\LABEL{$\mathrm{DNE}_{\phi\land\neg\psi}$}
+	\UIC{$\phi\land\neg\psi$}
+	\LABEL{$\CONJE$}
 	\UIC{$\phi$}
-	\LABEL{\NEGE}
+	\LABEL{$\NEGE$}
 	\UIC{$\bot$}
-	\LABEL{\IMPLI{5}}
-	\UIC{$\lnot\lnot\phi$}
-	\LABEL{\mathrm{DNE}_{\phi}}
+	\LABEL{$\IMPLI{5}$}
+	\UIC{$\neg\neg\phi$}
+	\LABEL{$\mathrm{DNE}_{\phi}$}
 	\UIC{$\phi$}
-	\LABEL{\IMPLI{6}}
+	\LABEL{$\IMPLI{6}$}
 	\UIC{$((\phi\to\psi)\to\phi)\to\phi$}
 \end{prooftree}
 
 $\mathrm{DNE}_\phi \implies \mathrm{EFQ}_\phi$:
 
 \begin{prooftree}
-	\ASSUME{$\lnot\phi$}{1}
+	\ASSUME{$\neg\phi$}{1}
 	\AXC{$\bot$}
-	\LABEL{\CONJI}
-	\BIC{$\lnot\phi\land\bot$}
-	\LABEL{\CONJE}
+	\LABEL{$\CONJI$}
+	\BIC{$\neg\phi\land\bot$}
+	\LABEL{$\CONJE$}
 	\UIC{$\bot$}
-	\LABEL{\IMPLI{1}}
-	\UIC{$\lnot\phi\to\bot$}
-	\UIC{$\lnot\lnot\phi$}
-	\LABEL{\mathrm{DNE}_\phi}
+	\LABEL{$\IMPLI{1}$}
+	\UIC{$\neg\phi\to\bot$}
+	\UIC{$\neg\neg\phi$}
+	\LABEL{$\mathrm{DNE}_\phi$}
 	\UIC{$\phi$}
 \end{prooftree}
 
@@ -170,62 +169,109 @@ $\mathrm{PP}_{\LEM{\phi},\bot} \implies \mathrm{LEM}_\phi$:
 \begin{prooftree}
 	\ASSUME{$(\LEM{\phi})\to\bot$}{2}
 	\ASSUME{$\phi$}{1}
-	\LABEL{\DISJI}
+	\LABEL{$\DISJI$}
 	\UIC{$\LEM{\phi}$}
-	\LABEL{\IMPLE}
+	\LABEL{$\IMPLE$}
 	\BIC{$\bot$}
-	\LABEL{\IMPLI{1}}
-	\UIC{$\lnot\phi$}
-	\LABEL{\DISJI}
+	\LABEL{$\IMPLI{1}$}
+	\UIC{$\neg\phi$}
+	\LABEL{$\DISJI$}
 	\UIC{$\LEM{\phi}$}
-	\LABEL{\IMPLI{2}}
+	\LABEL{$\IMPLI{2}$}
 	\UIC{$((\LEM{\phi})\to\bot)\to(\LEM{\phi})$}
-	\LABEL{\mathrm{PP}_{\LEM{\phi},\bot}}
+	\LABEL{$\mathrm{PP}_{\LEM{\phi},\bot}$}
 	\UIC{$\LEM{\phi}$}
 \end{prooftree}
 
-$\mathrm{DGP}_{\phi,\lnot\phi} \implies \mathrm{WLEM}_\phi$:
+$\mathrm{DGP}_{\phi,\neg\phi} \implies \mathrm{WLEM}_\phi$:
 
 \begin{prooftree}
 	\AXC{}
-	\LABEL{\mathrm{DGP}_{\phi,\lnot\phi}}
-	\UIC{$(\phi\to\lnot\phi)\lor(\lnot\phi\to\phi)$}
+	\LABEL{$\mathrm{DGP}_{\phi,\neg\phi}$}
+	\UIC{$(\phi\to\neg\phi)\lor(\neg\phi\to\phi)$}
 
 	\ASSUME{$\phi$}{1}
-	\AXC{$\phi\to\lnot\phi$}
-	\LABEL{\IMPLE}
-	\BIC{$\lnot\phi$}
-	\LABEL{\NEGE}
+	\AXC{$\phi\to\neg\phi$}
+	\LABEL{$\IMPLE$}
+	\BIC{$\neg\phi$}
+	\LABEL{$\NEGE$}
 	\UIC{$\bot$}
-	\LABEL{\IMPLI{1}}
-	\UIC{$\lnot\phi$}
-	\LABEL{\DISJI}
+	\LABEL{$\IMPLI{1}$}
+	\UIC{$\neg\phi$}
+	\LABEL{$\DISJI$}
 	\UIC{$\WLEM{\phi}$}
 
-	\ASSUME{$\lnot\phi$}{2}
-	\AXC{$\lnot\phi\to\phi$}
-	\LABEL{\IMPLE}
+	\ASSUME{$\neg\phi$}{2}
+	\AXC{$\neg\phi\to\phi$}
+	\LABEL{$\IMPLE$}
 	\BIC{$\phi$}
-	\LABEL{\NEGE}
+	\LABEL{$\NEGE$}
 	\UIC{$\bot$}
-	\LABEL{\IMPLI{2}}
-	\UIC{$\lnot\lnot\phi$}
-	\LABEL{\DISJI}
+	\LABEL{$\IMPLI{2}$}
+	\UIC{$\neg\neg\phi$}
+	\LABEL{$\DISJI$}
 	\UIC{$\WLEM{\phi}$}
 
 	\TIC{$\WLEM{\phi}$}
 \end{prooftree}
 
+$\mathrm{EFQ}_\phi \implies \mathrm{WPP}_{\phi,\psi}$:
 
-\end{document} 
+\begin{prooftree}
+	\ASSUME{$\psi\to\bot$}{3}
+	\ASSUME{$\psi$}{1}
+	\LABEL{$\IMPLE$}
+	\BIC{$\bot$}
+	\LABEL{$\mathrm{EFQ}_\phi$}
+	\UIC{$\phi$}
+	\LABEL{$\IMPLI{1}$}
+	\UIC{$\psi\to\phi$}
+	\ASSUME{$(\psi\to\phi)\to\bot$}{2}
+	\LABEL{$\IMPLE$}
+	\BIC{$\bot$}
+	\LABEL{$\IMPLI{2}$}
+	\UIC{$((\psi\to\phi)\to\bot)\to\bot$}
+	\LABEL{$\IMPLI{3}$}
+	\UIC{$\neg\phi\to\neg\neg(\psi\to\phi)$}
+\end{prooftree}
 
+$\mathrm{WPP}_{\psi,\phi} \implies \mathrm{DGP}^{\to}_{\phi,\psi}$:
 
+\begin{prooftree}
+	\ASSUME{$\neg(\phi\to\psi)$}{1}
+	\UIC{$\phi\land\neg\psi$}
+	\LABEL{$\CONJE$}
+	\UIC{$\neg\psi$}
+	\LABEL{$\mathrm{WPP}_{\psi,\phi}$}
+	\UIC{$\neg\neg(\psi\to\phi)$}
+	\LABEL{$\IMPLI{1}$}
+	\UIC{$\neg(\phi\to\psi)\to\neg\neg(\psi\to\phi)$}
+\end{prooftree}
 
+$\mathrm{DGP}_{\phi,\psi} \implies \mathrm{DGP}^{\to}_{\phi,\psi}$:
 
+\begin{prooftree}
+	\AXC{}
+	\LABEL{$\mathrm{DGP}_{\phi,\psi}$}
+	\UIC{$\DGP{\phi}{\psi}$}
 
+	\ASSUME{$\phi\to\psi$}{1}
+	\ASSUME{$\neg(\phi\to\psi)$}{2}
+	\BIC{$\bot$}
 
+	\ASSUME{$\neg(\psi\to\phi)$}{3}
+	\BIC{$\bot$}
+	\LABEL{$\IMPLI{3}$}
+	\UIC{$\neg\neg(\psi\to\phi)$}
 
+	\ASSUME{$\psi\to\phi$}{1}
+	\UIC{$\neg\neg(\psi\to\phi)$}
 
+	\LABEL{$\DISJE{1}$}
+	\TIC{$\neg\neg(\psi\to\phi)$}
+	\LABEL{$\IMPLI{3}$}
+	\UIC{$\DGPA{\phi}{\psi}$}
+\end{prooftree}
 
+\end{document}
 
- 
